@@ -27,3 +27,5 @@ spec:
       params:
         - name: url
           value: $(params.repo-url)
+        - name: url
+          value: $(params.repo-url)
