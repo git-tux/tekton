@@ -1,0 +1,22 @@
+---
+# K8s_manifests/Buildah_docker_push.yaml
+
+apiVersion: v1
+kind: Secret
+type: kubernetes.io/basic-auth
+metadata:
+  name: ghcr-credentials
+  annotations:
+    tekton.dev/docker-0: https://ghcr.io
+type: kubernetes.io/basic-auth
+stringData:
+  username: git-tux
+  password: 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
+
+---
+apiVersion: v1
+kind: ServiceAccount
+metadata:
+  name: build-bot
+secrets:
+  - name: ghcr-credentials
