@@ -17,8 +17,10 @@ spec:
       description: The Git URL
     - name: git-revision
       description: The Git revision to use
-    - name: app-label
-      description: Value of the app label
+    - name: app-namespace
+      description: Namespace of app
+    - name: deployment
+      description: K8s deployment name
   workspaces:
     - name: source
   tasks:
@@ -58,8 +60,10 @@ spec:
       runAfter:
         - buildah-image
       params:
-        - name: APPNAME
-          value: $(params.app-label)
+        - name: DEPLOYMENT
+          value: $(params.deployment)
+        - name: NS
+          value: $(params.app-namespace)
       workspaces:
         - name: source
           workspace: source

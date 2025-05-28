@@ -14,8 +14,10 @@ spec:
     value: ghcr.io/git-tux/goserver
   - name: git-revision
     value: ""
-  - name: app-label
-    value: goserver
+  - name: deployment
+    value: goserver-deployment
+  - name: app-namespace
+    value: apps
   workspaces:
     - name: source
       volumeClaimTemplate:
