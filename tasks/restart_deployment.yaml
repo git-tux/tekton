@@ -1,0 +1,15 @@
+apiVersion: tekton.dev/v1beta1
+kind: Task
+metadata:
+  name: kubectl-deploy
+  namespace: cicd
+spec:
+  params:
+    - name: APPNAME
+      type: string
+      description: app label value
+  steps:
+    - name: run-kubectl 
+      image: lachlanevenson/k8s-kubectl
+      script: |
+        kubectl rollout restart deployment --selector=app=$(param.APPNAME)
