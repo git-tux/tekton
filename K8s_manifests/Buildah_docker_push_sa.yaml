@@ -12,7 +12,7 @@ metadata:
 type: kubernetes.io/basic-auth
 stringData:
   username: git-tux
-  password: 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
+  password: GITHUB_TOKEN
 
 ---
 apiVersion: v1
