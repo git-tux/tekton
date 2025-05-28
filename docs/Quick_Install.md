@@ -1,8 +1,12 @@
 # Steps to quickly setup a ci/cd pipeline in kubernetes for a go app
 
-Please make sure do you have kubectl installed and configured with a test kubernetes cluster. All the following commands have been tested locally using [KinD](https://kind.sigs.k8s.io/)
+Please make sure that you have kubectl installed and configured with a test 
+kubernetes cluster. All the following commands have been tested locally using
+[KinD](https://kind.sigs.k8s.io/)
 
-First, please download the Github Personal Access Token that I have already shared with you. This is a test github account and the shared pat has limited access and will be expired after a few days
+First, please download the Github Personal Access Token that I have already 
+shared with you. This is a test github account and the shared pat has limited
+access and will be expired after a few days
 
 ```
 export GITHUB_TOKEN=<Github Token>
