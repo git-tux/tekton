@@ -12,4 +12,4 @@ spec:
     - name: run-kubectl 
       image: lachlanevenson/k8s-kubectl
       script: |
-        kubectl rollout restart deployment --selector=app=$(param.APPNAME)
+        kubectl rollout restart deployment --selector=app=$(params.APPNAME)
