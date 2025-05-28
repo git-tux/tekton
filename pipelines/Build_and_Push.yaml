@@ -1,0 +1,65 @@
+---
+# Pipeline that clones a repository and builds
+# and uplads a docker image
+
+apiVersion: tekton.dev/v1beta1
+kind: Pipeline
+metadata:
+  name: pipeline-git-buildah
+  namespace: cicd
+spec:
+  description: >-
+    The Pipeline to build and deploy with buildah
+  params:
+    - name: image-name
+      description: The fully qualified image name
+    - name: git-repo
+      description: The Git URL
+    - name: git-revision
+      description: The Git revision to use
+    - name: app-label
+      description: Value of the app label
+  workspaces:
+    - name: source
+  tasks:
+    - name: git-clone
+      taskRef:
+        name: git-clone
+      params:
+        - name: url
+          value: $(params.git-repo)
+        - name: revision
+          value: $(params.git-revision)
+        - name: deleteExisting
+          value: 'true'
+      workspaces:
+        - name: output
+          workspace: source
+    - name: buildah-image
+      taskRef:
+        name: buildah
+      runAfter:
+        - git-clone
+      params:
+        - name: IMAGE
+          value: "$(params.image-name)"
+        - name: CONTEXT
+          value: app
+        - name: TLSVERIFY
+          value: 'false'
+        - name: FORMAT
+          value: "docker"
+      workspaces:
+        - name: source
+          workspace: source
+    - name: deploy-kubernetes
+      taskRef:
+        name: kubectl-deploy
+      runAfter:
+        - buildah-image
+      params:
+        - name: APPNAME
+          value: $(params.app-label)
+      workspaces:
+        - name: source
+          workspace: source

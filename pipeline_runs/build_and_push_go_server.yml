@@ -1,0 +1,25 @@
+apiVersion: tekton.dev/v1beta1
+kind: PipelineRun
+metadata:
+  generateName: goserver-pipelinerun-
+  namespace: cicd
+spec:
+  serviceAccountName: build-bot
+  pipelineRef:
+    name: pipeline-git-buildah
+  params:
+  - name: git-repo
+    value: https://github.com/git-tux/tekton.git
+  - name: image-name
+    value: ghcr.io/git-tux/goserver
+  - name: git-revision
+    value: ""
+  workspaces:
+    - name: source
+      volumeClaimTemplate:
+        spec:
+          accessModes:
+            - ReadWriteOnce
+          resources:
+            requests:
+              storage: 2Gi
