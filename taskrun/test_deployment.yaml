@@ -1,0 +1,15 @@
+---
+apiVersion: tekton.dev/v1 # or tekton.dev/v1beta1
+kind: TaskRun
+metadata:
+  name: taskrun-deploy
+  namespace: cicd
+spec:
+  serviceAccountName: build-bot
+  params:
+    - name: NS
+      value: apps
+    - name: DEPLOYMENT
+      value: goserver-deployment
+  taskRef:
+    name: kubectl-deploy
