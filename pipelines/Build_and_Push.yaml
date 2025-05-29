@@ -64,6 +64,3 @@ spec:
           value: $(params.deployment)
         - name: NS
           value: $(params.app-namespace)
-      workspaces:
-        - name: source
-          workspace: source
