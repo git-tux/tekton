@@ -1,0 +1,27 @@
+apiVersion: rbac.authorization.k8s.io/v1
+kind: Role
+metadata:
+  name: apps-deployer-role
+  namespace: apps
+rules:
+- apiGroups: [""]
+  resources: ["pods", "services"]
+  verbs: ["get", "list", "watch"]
+- apiGroups: ["apps"]
+  resources: ["patch","deployments", "replicasets", "statefulsets"]
+  verbs: ["get", "list", "watch", "patch", "delete", "update"]
+
+---
+apiVersion: rbac.authorization.k8s.io/v1
+kind: RoleBinding
+metadata:
+  name: apps-cicd-deployer-role-binding
+  namespace: apps
+subjects:
+- kind: ServiceAccount
+  name: build-bot
+  namespace: cicd
+roleRef:
+  kind: Role
+  name: apps-deployer-role
+  apiGroup: rbac.authorization.k8s.io
