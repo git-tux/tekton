@@ -41,6 +41,11 @@ kubectl -n cicd apply -f https://api.hub.tekton.dev/v1/resource/tekton/task/buil
 ```
 kubectl -n cicd apply -f pipelines/Build_and_Push.yaml
 ```
+## Allow build-bot serviceaccount to deploy on Kubernetes
+
+```
+kubectl apply -f K8s_manifests/rbac.yaml
+```
 
 ## Create ta task for k8s deployment which will be called from our pipeline
 ```
